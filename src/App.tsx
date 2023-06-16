@@ -1,25 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import TooDooList from "./Components/TooDooList";
+const styles = {
+  too_doo_contayner:{
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+  }
+}
+
+const v1 = ():string =>{
+    return Math.random().toString()
+}
+
+export type filterValueType = "All"|"Active"|"Complited"
+
+export type toodooListType  = {
+
+}
+type tasckType = {
+    id:string,
+    title:string,
+    isDone:boolean,
+}
+type stateTascksType = {
+    [key:string]:Array<tasckType>
+}
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    const [toodoLists, setToodoLists] = useState([{id:v1(), title:"list1", filter:"All"}]);
+
+
+    const [tascks, setTascks] = useState<stateTascksType>({
+        ["0.1123214142"]:[{id:v1(),title:"first tasck",isDone:false}]
+    });
+
+    
+    
+    return (
+      <div style={styles.too_doo_contayner}>
+        <TooDooList />
+      </div>
+
   );
 }
 
