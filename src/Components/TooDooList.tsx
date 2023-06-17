@@ -1,5 +1,11 @@
-import React from 'react';
+import React, {FC} from 'react';
 import Tasck from "./Tasck";
+import {stateTascksType} from "../App";
+
+type tooDoListPropsType = {
+    tascs:stateTascksType,
+
+}
 
 const TooDooList = () => {
     return (

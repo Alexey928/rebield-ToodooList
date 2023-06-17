@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React ,{useState as State} from 'react';
 import TooDooList from "./Components/TooDooList";
 import {v1} from "uuid";
+import {getTasksForRender as tasksFilter} from "./AuxiliaryLogic/AuxiliaryLogic"
 
 const styles = {
   too_doo_contayner:{
@@ -9,7 +10,6 @@ const styles = {
     justifyContent:"center",
   }
 }
-
 export type filterValueType = "All" | "Active" | "Complited";
 
 export type toodooListType  = {
@@ -18,54 +18,53 @@ export type toodooListType  = {
      filter:filterValueType
 }
 
-type tasckType = {
+export type tasckType = {
     id:string,
     title:string,
     isDone:boolean,
 }
 
-type stateTascksType = {
+export type stateTascksType = {
     [key:string]:Array<tasckType>
 }
 
-
 function App() {
+
     const Id1 = v1();
     const Id2 = v1();
     const Id3 = v1();
-    const [toodoLists, setToodoLists] = useState(
+    const [toodoLists, setToodoLists] = State<Array<toodooListType>>(
         [  {id:Id1, title:"list1", filter:"All"},
                     {id:Id2, title:"list2", filter:"Complited"},
                     {id:Id3, title:"list3", filter:"Active"},
         ]);
 
-
-    const [tasks, setTascks] = useState<stateTascksType>({
-            [Id1]:[{id:v1(),title:"first tasck",isDone:false}],
-            [Id2]:[{id:v1(),title:"first tasck",isDone:true}],
-            [Id3]:[{id:v1(),title:"first tasck",isDone:false}],
+    const [tasks, setTascks] = State<stateTascksType>({
+            [Id1]:[
+                {id:v1(),title:"first task1",isDone:false},
+                {id:v1(),title:"first task2",isDone:true},
+                {id:v1(),title:"first task3",isDone:false},
+            ],
+            [Id2]:[
+                {id:v1(),title:"first task1",isDone:true},
+                {id:v1(),title:"first task2",isDone:true},
+                {id:v1(),title:"first task3",isDone:false},
+            ],
+            [Id3]:[
+                {id:v1(),title:"first task1",isDone:true},
+                {id:v1(),title:"first task2",isDone:false},
+                {id:v1(),title:"first task3",isDone:false},
+            ],
     });
 
-
-    const fileterForRenderedTaskc = (toodoList:toodooListType) => {
-        switch (toodoList.filter) {
-            case "Active":
-                return tasks[toodoList.id].filter(t => !t.isDone);
-            case "Complited":
-                return tasks[toodoList.id].filter(t => t.isDone);
-            default:
-                return tasks[toodoList.id];
-       }}
 
     return (
         <div>
             <div style={styles.too_doo_contayner}>
-                to
+                {toodoLists.map((tl)=><TooDooList key={tl.id}/>)}
             </div>
         </div>
-
-
-  );
+    );
 }
 
 export default App;
