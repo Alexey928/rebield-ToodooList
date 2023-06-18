@@ -1,17 +1,21 @@
-import React, {FC} from 'react';
-import Tasck from "./Tasck";
-import {stateTascksType} from "../App";
+import React  from 'react';
+import Task from "./Task";
+import {tasckType} from "../App";
+import {getTasksForRender as tasksFilter} from "../AuxiliaryLogic/AuxiliaryLogic"
+import FilteredButtonsInterface from "./FilteredButonsInterfase";
 
 type tooDoListPropsType = {
-    tascs:stateTascksType,
-
+    tasks:Array<tasckType>,
+    filter:string
 }
 
-const TooDooList = () => {
+const TooDooList:React.FC<tooDoListPropsType> = ({tasks,filter}) => {
+
     return (
         <div>
             <h1>TooDooList</h1>
-            <Tasck/>
+            <Task/>
+            <FilteredButtonsInterface/>
         </div>
     );
 };

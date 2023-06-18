@@ -1,8 +1,6 @@
 import React ,{useState as State} from 'react';
 import TooDooList from "./Components/TooDooList";
 import {v1} from "uuid";
-import {getTasksForRender as tasksFilter} from "./AuxiliaryLogic/AuxiliaryLogic"
-
 const styles = {
   too_doo_contayner:{
     display:"flex",
@@ -10,6 +8,7 @@ const styles = {
     justifyContent:"center",
   }
 }
+
 export type filterValueType = "All" | "Active" | "Complited";
 
 export type toodooListType  = {
@@ -17,19 +16,16 @@ export type toodooListType  = {
      title:string,
      filter:filterValueType
 }
-
 export type tasckType = {
     id:string,
     title:string,
     isDone:boolean,
 }
-
 export type stateTascksType = {
     [key:string]:Array<tasckType>
 }
 
 function App() {
-
     const Id1 = v1();
     const Id2 = v1();
     const Id3 = v1();
@@ -61,7 +57,7 @@ function App() {
     return (
         <div>
             <div style={styles.too_doo_contayner}>
-                {toodoLists.map((tl)=><TooDooList key={tl.id}/>)}
+                {toodoLists.map((tl)=><TooDooList filter = {tl.filter} tasks={tasks[tl.id]} key={tl.id}/>)}
             </div>
         </div>
     );

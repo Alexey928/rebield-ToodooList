@@ -1,13 +1,14 @@
-import {stateTascksType,toodooListType} from "../App";
 
-export const getTasksForRender = (list:toodooListType,tasks:stateTascksType) => {
-    switch (list.filter) {
+import {filterValueType,tasckType} from "../App";
+
+export const getTasksForRender = (filter:filterValueType, tasks:Array<tasckType>) => {
+    switch (filter) {
         case "Active":
-            return tasks[list.id].filter(t => !t.isDone);
+            return tasks.filter(t => !t.isDone);
         case "Complited":
-            return tasks[list.id].filter(t => t.isDone);
+            return tasks.filter(t => t.isDone);
         default:
-            return tasks[list.id];
+            return tasks;
     }}
 
 
