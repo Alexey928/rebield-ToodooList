@@ -1,16 +1,18 @@
 import React from 'react';
+import {filterValueType} from "../App";
 
 type FilteredButtonsType = {
-
+    listID:string
+    setToodoListFilter:(listID:string,filter:filterValueType)=>void
 }
 
 
-const FilteredButtonsInterface = () => {
+const FilteredButtonsInterface:React.FC<FilteredButtonsType> = ({setToodoListFilter,listID}) => {
     return (
         <div>
-            <button>All</button>
-            <button>Active</button>
-            <button>Completed</button>
+            <button onClick={()=>setToodoListFilter(listID,"All")}>All</button>
+            <button onClick={()=>setToodoListFilter(listID,"Active")}>Active</button>
+            <button onClick={()=>setToodoListFilter(listID,"Complited")}>Completed</button>
         </div>
     );
 };

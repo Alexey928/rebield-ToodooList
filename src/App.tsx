@@ -29,35 +29,56 @@ function App() {
     const Id1 = v1();
     const Id2 = v1();
     const Id3 = v1();
-    const [toodoLists, setToodoLists] = State<Array<toodooListType>>(
+    const [toodoLists,setToodoLists ] = State<Array<toodooListType>>(
         [  {id:Id1, title:"list1", filter:"All"},
-                    {id:Id2, title:"list2", filter:"Complited"},
-                    {id:Id3, title:"list3", filter:"Active"},
+                    {id:Id2, title:"list2", filter:"All"},
+                    {id:Id3, title:"list3", filter:"All"},
         ]);
 
-    const [tasks, setTascks] = State<stateTascksType>({
+    const [tasks, setTasks] = State<stateTascksType>({
             [Id1]:[
                 {id:v1(),title:"first task1",isDone:false},
-                {id:v1(),title:"first task2",isDone:true},
+                {id:v1(),title:"first task2",isDone:false},
                 {id:v1(),title:"first task3",isDone:false},
             ],
             [Id2]:[
-                {id:v1(),title:"first task1",isDone:true},
-                {id:v1(),title:"first task2",isDone:true},
+                {id:v1(),title:"first task1",isDone:false},
+                {id:v1(),title:"first task2",isDone:false},
                 {id:v1(),title:"first task3",isDone:false},
             ],
             [Id3]:[
-                {id:v1(),title:"first task1",isDone:true},
+                {id:v1(),title:"first task1",isDone:false},
                 {id:v1(),title:"first task2",isDone:false},
                 {id:v1(),title:"first task3",isDone:false},
             ],
     });
 
+    const changeTaskStatus = (tascID:string,listID:string)  => {
+        setTasks({...tasks,[listID]:tasks[listID].map((t)=>t.id===tascID?{...t,isDone:!t.isDone}:{...t})})
+    }
+
+    const removeTask = (tascID:string,listID:string) => {
+        setTasks({...tasks,[listID]:tasks[listID].filter((t)=>t.id!==tascID)});
+    }
+
+    const setToodoListFilter = (listID:string,filter:filterValueType)=>{
+        setToodoLists(toodoLists.map((tl)=>tl.id===listID?{...tl,filter}:tl))
+    }
+
 
     return (
         <div>
             <div style={styles.too_doo_contayner}>
-                {toodoLists.map((tl)=><TooDooList filter = {tl.filter} tasks={tasks[tl.id]} key={tl.id}/>)}
+                {toodoLists.map((tl)=><TooDooList  setToodoListFilter={setToodoListFilter}
+                                                                removeTask={removeTask}
+                                                                changeTaskStatus={changeTaskStatus}
+                                                                filter = {tl.filter}
+                                                                tasks={tasks[tl.id]}
+                                                                key={tl.id}
+                                                                listID={tl.id}/>)
+                }
+
+
             </div>
         </div>
     );

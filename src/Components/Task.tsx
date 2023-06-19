@@ -1,12 +1,20 @@
 import React from 'react';
 
-const Task = () => {
+
+type TasksPropsType = {
+    changeTascStatus:()=>void
+    remuveTask:()=>void
+    id:string
+    tittle:string,
+    isDone:boolean
+}
+const Task:React.FC<TasksPropsType>= ({tittle,isDone,changeTascStatus,remuveTask}) => {
 
     return (
         <div>
-            <input type="checkbox"/>
-            <span>first tasck</span>
-            <button style={{marginLeft:10}}>del</button>
+            <input onChange={changeTascStatus} type="checkbox" checked={isDone}/>
+            <span>"{tittle}</span>
+            <button onClick={remuveTask} style={{marginLeft:10}}>del</button>
         </div>
     );
 };
