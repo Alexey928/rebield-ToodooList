@@ -11,4 +11,14 @@ export const getTasksForRender = (filter:filterValueType, tasks:Array<tasckType>
             return tasks;
     }}
 
+export const validateInputValue=(inputValue:string,errSeater:(err:boolean)=>void)=>{
+    if (inputValue.trim()) {
+        errSeater(false);
+        return true
+    }else{
+        errSeater(true);
+        return false
+    }
+}
+
 

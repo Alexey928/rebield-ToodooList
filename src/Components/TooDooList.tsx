@@ -5,6 +5,7 @@ import {getTasksForRender as tasksFilter} from "../AuxiliaryLogic/AuxiliaryLogic
 import FilteredButtonsInterface from "./FilteredButonsInterfase";
 
 type tooDoListPropsType = {
+    title:string
     listID:string
     tasks:Array<tasckType>,
     filter:filterValueType,
@@ -14,6 +15,7 @@ type tooDoListPropsType = {
 }
 
 const TooDooList:React.FC<tooDoListPropsType> = ({
+                                                     title,
                                                      listID,
                                                      tasks,
                                                      filter,
@@ -23,17 +25,20 @@ const TooDooList:React.FC<tooDoListPropsType> = ({
                                                  }) => {
 
     return (
-        <div>
+        <div >
             <h1>TooDooList</h1>
-            {tasksFilter(filter,tasks).map((t) =>
-                (<Task remuveTask={()=>removeTask(t.id,listID)}
-                       changeTascStatus={()=>changeTaskStatus(t.id,listID)}
-                       isDone={t.isDone}
-                       id={t.id}
-                       key={t.id}
-                       tittle={t.title}
-                />))
-            }
+            <div>
+                {tasksFilter(filter,tasks).map((t) =>
+                    (<Task remuveTask={()=>removeTask(t.id,listID)}
+                           changeTascStatus={()=>changeTaskStatus(t.id,listID)}
+                           isDone={t.isDone}
+                           id={t.id}
+                           key={t.id}
+                           tittle={t.title}
+                    />))
+                }
+            </div>
+
             <FilteredButtonsInterface listID={listID} setToodoListFilter={setToodoListFilter}/>
         </div>
     );

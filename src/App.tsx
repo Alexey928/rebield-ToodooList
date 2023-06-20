@@ -2,10 +2,10 @@ import React ,{useState as State} from 'react';
 import TooDooList from "./Components/TooDooList";
 import {v1} from "uuid";
 const styles = {
-  too_doo_contayner:{
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
+  too_dooLists_contayner:{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
   }
 }
 
@@ -64,18 +64,22 @@ function App() {
     const setToodoListFilter = (listID:string,filter:filterValueType)=>{
         setToodoLists(toodoLists.map((tl)=>tl.id===listID?{...tl,filter}:tl))
     }
-
+    const addTAsk = (listID:string,title:string)=>{
+        setTasks({...tasks,[listID]:[{id: v1(), title: title, isDone: false},...tasks[listID]]});
+    }
 
     return (
         <div>
-            <div style={styles.too_doo_contayner}>
+            <div style={styles.too_dooLists_contayner}>
                 {toodoLists.map((tl)=><TooDooList  setToodoListFilter={setToodoListFilter}
                                                                 removeTask={removeTask}
                                                                 changeTaskStatus={changeTaskStatus}
                                                                 filter = {tl.filter}
                                                                 tasks={tasks[tl.id]}
                                                                 key={tl.id}
-                                                                listID={tl.id}/>)
+                                                                listID={tl.id}
+                                                                title={tl.title}/>)
+
                 }
 
 
