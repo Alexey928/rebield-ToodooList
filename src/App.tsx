@@ -67,11 +67,22 @@ function App() {
     const addTAsk = (listID:string,title:string)=>{
         setTasks({...tasks,[listID]:[{id: v1(), title: title, isDone: false},...tasks[listID]]});
     }
+    const addTodooList = (title:string)=>{
+        const forigenKeyID = v1();
+        setToodoLists([...toodoLists,{id:forigenKeyID,title:title,filter:"All"}]);
+        setTasks({...tasks,[forigenKeyID]:[]});
+    }
+    const removeTodooList = (listID:string)=>{
+       setToodoLists(toodoLists.filter(list=>list.id!==listID))
+       delete tasks[listID]
+    }
+
 
     return (
         <div>
             <div style={styles.too_dooLists_contayner}>
-                {toodoLists.map((tl)=><TooDooList  setToodoListFilter={setToodoListFilter}
+                {toodoLists.map((tl)=><TooDooList  addTAsk={addTAsk}
+                                                                setToodoListFilter={setToodoListFilter}
                                                                 removeTask={removeTask}
                                                                 changeTaskStatus={changeTaskStatus}
                                                                 filter = {tl.filter}
@@ -79,7 +90,6 @@ function App() {
                                                                 key={tl.id}
                                                                 listID={tl.id}
                                                                 title={tl.title}/>)
-
                 }
 
 

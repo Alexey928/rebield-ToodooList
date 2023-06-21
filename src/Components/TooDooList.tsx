@@ -3,6 +3,7 @@ import Task from "./Task";
 import {filterValueType, tasckType} from "../App";
 import {getTasksForRender as tasksFilter} from "../AuxiliaryLogic/AuxiliaryLogic"
 import FilteredButtonsInterface from "./FilteredButonsInterfase";
+import AddItemForm from "./AddItemForm";
 
 type tooDoListPropsType = {
     title:string
@@ -12,6 +13,7 @@ type tooDoListPropsType = {
     changeTaskStatus:(tascID:string, listID:string)=>void,
     removeTask:(ascID:string, listID:string)=>void,
     setToodoListFilter:(listID:string,filter:filterValueType)=>void,
+    addTAsk:(listID:string,title:string)=>void
 }
 
 const TooDooList:React.FC<tooDoListPropsType> = ({
@@ -21,12 +23,14 @@ const TooDooList:React.FC<tooDoListPropsType> = ({
                                                      filter,
                                                      changeTaskStatus ,
                                                      removeTask,
-                                                     setToodoListFilter
+                                                     setToodoListFilter,
+                                                     addTAsk
                                                  }) => {
 
     return (
         <div >
             <h1>TooDooList</h1>
+            <AddItemForm ID={listID} addItem={addTAsk}/>
             <div>
                 {tasksFilter(filter,tasks).map((t) =>
                     (<Task remuveTask={()=>removeTask(t.id,listID)}
