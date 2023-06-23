@@ -65,8 +65,6 @@ function App() {
        delete tasks[listID]
     }
 
-
-
     return (
         <div>
             <AddItemForm ID={""} addItem={addTodoList}/>
