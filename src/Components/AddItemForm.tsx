@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEventHandler, useState} from 'react';
 import {validateInputValue as validator} from "../AuxiliaryLogic/AuxiliaryLogic"
 
 type AddItemFormPropsType ={
@@ -26,7 +26,7 @@ const AddItemForm:React.FC<AddItemFormPropsType> = ({addItem,ID}) => {
                    }}
             />
             <button onClick={()=>{validator(inputValue,setError) && addItem(ID,inputValue);setInputValue("")}}>Add</button>
-            {error&&<span>ER</span>}
+            {error && <span>ER</span>}
         </div>
     );
 };

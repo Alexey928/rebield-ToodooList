@@ -1,12 +1,13 @@
 import React ,{useState as State} from 'react';
 import TooDooList from "./Components/TooDooList";
 import {v1} from "uuid";
+import AddItemForm from "./Components/AddItemForm";
 const styles = {
   too_dooLists_contayner:{
         display:"flex",
         alignItems:"center",
         justifyContent:"center",
-  }
+  },
 }
 
 export type filterValueType = "All" | "Active" | "Complited";
@@ -26,35 +27,20 @@ export type stateTascksType = {
 }
 
 function App() {
-    const Id1 = v1();
-    const Id2 = v1();
-    const Id3 = v1();
-    const [toodoLists,setToodoLists ] = State<Array<toodooListType>>(
-        [  {id:Id1, title:"list1", filter:"All"},
-                    {id:Id2, title:"list2", filter:"All"},
-                    {id:Id3, title:"list3", filter:"All"},
-        ]);
 
-    const [tasks, setTasks] = State<stateTascksType>({
-            [Id1]:[
-                {id:v1(),title:"first task1",isDone:false},
-                {id:v1(),title:"first task2",isDone:false},
-                {id:v1(),title:"first task3",isDone:false},
-            ],
-            [Id2]:[
-                {id:v1(),title:"first task1",isDone:false},
-                {id:v1(),title:"first task2",isDone:false},
-                {id:v1(),title:"first task3",isDone:false},
-            ],
-            [Id3]:[
-                {id:v1(),title:"first task1",isDone:false},
-                {id:v1(),title:"first task2",isDone:false},
-                {id:v1(),title:"first task3",isDone:false},
-            ],
-    });
+    const [toodoLists,setToodoLists ] = State<Array<toodooListType>>([]);
+    const [tasks, setTasks] = State<stateTascksType>({});
 
     const changeTaskStatus = (tascID:string,listID:string)  => {
-        setTasks({...tasks,[listID]:tasks[listID].map((t)=>t.id===tascID?{...t,isDone:!t.isDone}:{...t})})
+
+        setTasks({...tasks,[listID]:tasks[listID].map((t)=>t.id===tascID?{...t,isDone:!t.isDone}:{...t})});
+    }
+    const changeTaskTitle = (listID:string, taskID:string, newTitle:string)=>{
+        setTasks({...tasks,[listID]:tasks[listID].map((t)=>t.id===taskID?{...t,title:newTitle}:t)});
+    }
+    const changeToodoListTitle = (listID:string,newTitle:string)=>{
+        debugger
+        setToodoLists(toodoLists.map((l)=>l.id===listID?{...l,title:newTitle}:l));
     }
 
     const removeTask = (tascID:string,listID:string) => {
@@ -67,21 +53,28 @@ function App() {
     const addTAsk = (listID:string,title:string)=>{
         setTasks({...tasks,[listID]:[{id: v1(), title: title, isDone: false},...tasks[listID]]});
     }
-    const addTodooList = (title:string)=>{
+
+    const addTodooList = (ID:string,title:string)=>{
         const forigenKeyID = v1();
         setToodoLists([...toodoLists,{id:forigenKeyID,title:title,filter:"All"}]);
         setTasks({...tasks,[forigenKeyID]:[]});
     }
+
     const removeTodooList = (listID:string)=>{
-       setToodoLists(toodoLists.filter(list=>list.id!==listID))
+        setToodoLists(toodoLists.filter(list=>list.id!==listID))
        delete tasks[listID]
     }
 
 
+
     return (
         <div>
+            <AddItemForm ID={""} addItem={addTodooList}/>
             <div style={styles.too_dooLists_contayner}>
-                {toodoLists.map((tl)=><TooDooList  addTAsk={addTAsk}
+                {toodoLists.map((tl)=><TooDooList  changeTaskTitle={changeTaskTitle}
+                                                                changeToodoListTitle={changeToodoListTitle}
+                                                                removeTodooList={removeTodooList}
+                                                                addTAsk={addTAsk}
                                                                 setToodoListFilter={setToodoListFilter}
                                                                 removeTask={removeTask}
                                                                 changeTaskStatus={changeTaskStatus}
@@ -91,8 +84,6 @@ function App() {
                                                                 listID={tl.id}
                                                                 title={tl.title}/>)
                 }
-
-
             </div>
         </div>
     );

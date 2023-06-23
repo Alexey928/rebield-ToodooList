@@ -4,7 +4,7 @@ import React, {ChangeEvent, useState} from 'react';
 type EditableSpanPropsType = {
     id:string
     titlle: string
-    onChange: (newValue: string,id:string) => void
+    onChange: (id:string,newValue:string) => void
 }
 
 export function EditableSpan(props: EditableSpanPropsType){
@@ -12,19 +12,25 @@ export function EditableSpan(props: EditableSpanPropsType){
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState(props.titlle);
 
+
     const activateEditMode = () => {
         setEditMode(true);
         setTitle(props.titlle);
     }
     const activateViewMode = () => {
+        console.log("ll")
         setEditMode(false);
-        props.onChange(title,props.id);
+        props.onChange(props.id,title);
     }
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
-    return editMode
-        ? <input  value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode}/>
-        : <span onDoubleClick={activateEditMode}>{props.titlle}</span>
+    return editMode ?
+        <input  value={title}
+                  onChange={changeTitle}
+                  autoFocus onBlur={activateViewMode}
+                  onKeyPress={(e:any)=>e.key==="Enter"&&activateViewMode()}
+        /> :
+        <span onDoubleClick={activateEditMode}>{props.titlle}</span>
 }
