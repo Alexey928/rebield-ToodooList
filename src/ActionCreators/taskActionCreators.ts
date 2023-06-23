@@ -1,4 +1,4 @@
-import {AddTodolistActionType, RemoveTodolistActionType} from "./toodoListsActionCreators";
+
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
@@ -22,14 +22,6 @@ export type ChangeTaskTitleActionType = {
     title: string
     listId: string
 }
-
-type ActionsType =
-    RemoveTaskActionType
-    | AddTaskActionType
-    | ChangeTaskStatusActionType
-    | ChangeTaskTitleActionType
-    | AddTodolistActionType
-    | RemoveTodolistActionType
 
 
 export const removeTaskAC = (taskId: string, listId: string): RemoveTaskActionType => {

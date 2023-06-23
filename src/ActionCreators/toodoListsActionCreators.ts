@@ -20,8 +20,3 @@ export type ChangeTodolistFilterActionType = {
     filter: filterValueType
 }
 
-type ActionsType =
-    RemoveTodolistActionType
-    | AddTodolistActionType
-    | ChangeTodolistTitleActionType
-    | ChangeTodolistFilterActionType;
