@@ -3,65 +3,65 @@ import TooDooList from "./Components/TooDooList";
 import {v1} from "uuid";
 import AddItemForm from "./Components/AddItemForm";
 const styles = {
-  too_dooLists_contayner:{
+  too_dooLists_container:{
         display:"flex",
         alignItems:"center",
         justifyContent:"center",
   },
 }
 
-export type filterValueType = "All" | "Active" | "Complited";
+export type filterValueType = "All" | "Active" | "Completed";
 
-export type toodooListType  = {
+export type todoListType = {
      id:string,
      title:string,
      filter:filterValueType
 }
-export type tasckType = {
+export type taskType = {
     id:string,
     title:string,
     isDone:boolean,
 }
-export type stateTascksType = {
-    [key:string]:Array<tasckType>
+export type stateTasksType = {
+    [key:string]:Array<taskType>
 }
 
 function App() {
 
-    const [toodoLists,setToodoLists ] = State<Array<toodooListType>>([]);
-    const [tasks, setTasks] = State<stateTascksType>({});
+    const [todoLists,setTodoLists ] = State<Array<todoListType>>([]);
+    const [tasks, setTasks] = State<stateTasksType>({});
 
-    const changeTaskStatus = (tascID:string,listID:string)  => {
-
-        setTasks({...tasks,[listID]:tasks[listID].map((t)=>t.id===tascID?{...t,isDone:!t.isDone}:{...t})});
+    const changeTaskStatus = (taskID:string,listID:string)  => {
+        setTasks({...tasks,[listID]:tasks[listID].map((t)=>t.id===taskID?{...t,isDone:!t.isDone}:{...t})});
     }
+
     const changeTaskTitle = (listID:string, taskID:string, newTitle:string)=>{
         setTasks({...tasks,[listID]:tasks[listID].map((t)=>t.id===taskID?{...t,title:newTitle}:t)});
     }
-    const changeToodoListTitle = (listID:string,newTitle:string)=>{
-        debugger
-        setToodoLists(toodoLists.map((l)=>l.id===listID?{...l,title:newTitle}:l));
+
+    const changeTodoListTitle = (listID:string,newTitle:string)=>{
+        setTodoLists(todoLists.map((l)=>l.id===listID?{...l,title:newTitle}:l));
     }
 
-    const removeTask = (tascID:string,listID:string) => {
-        setTasks({...tasks,[listID]:tasks[listID].filter((t)=>t.id!==tascID)});
+    const removeTask = (taskID:string,listID:string) => {
+        setTasks({...tasks,[listID]:tasks[listID].filter((t)=>t.id!==taskID)});
     }
 
-    const setToodoListFilter = (listID:string,filter:filterValueType)=>{
-        setToodoLists(toodoLists.map((tl)=>tl.id===listID?{...tl,filter}:tl))
+    const setTodoListFilter = (listID:string,filter:filterValueType)=>{
+        setTodoLists(todoLists.map((tl)=>tl.id===listID?{...tl,filter}:tl))
     }
     const addTAsk = (listID:string,title:string)=>{
         setTasks({...tasks,[listID]:[{id: v1(), title: title, isDone: false},...tasks[listID]]});
     }
 
-    const addTodooList = (ID:string,title:string)=>{
+    const addTodoList = (ID:string,title:string)=>{
         const forigenKeyID = v1();
-        setToodoLists([...toodoLists,{id:forigenKeyID,title:title,filter:"All"}]);
+        setTodoLists([...todoLists,{id:forigenKeyID,title:title,filter:"All"}]);
         setTasks({...tasks,[forigenKeyID]:[]});
     }
 
-    const removeTodooList = (listID:string)=>{
-        setToodoLists(toodoLists.filter(list=>list.id!==listID))
+    const removeTodoList = (listID:string)=>{
+        setTodoLists(todoLists.filter(list=>list.id!==listID))
        delete tasks[listID]
     }
 
@@ -69,13 +69,13 @@ function App() {
 
     return (
         <div>
-            <AddItemForm ID={""} addItem={addTodooList}/>
-            <div style={styles.too_dooLists_contayner}>
-                {toodoLists.map((tl)=><TooDooList  changeTaskTitle={changeTaskTitle}
-                                                                changeToodoListTitle={changeToodoListTitle}
-                                                                removeTodooList={removeTodooList}
+            <AddItemForm ID={""} addItem={addTodoList}/>
+            <div style={styles.too_dooLists_container}>
+                {todoLists.map((tl)=><TooDooList  changeTaskTitle={changeTaskTitle}
+                                                                changeToodoListTitle={changeTodoListTitle}
+                                                                removeTodooList={removeTodoList}
                                                                 addTAsk={addTAsk}
-                                                                setToodoListFilter={setToodoListFilter}
+                                                                setToodoListFilter={setTodoListFilter}
                                                                 removeTask={removeTask}
                                                                 changeTaskStatus={changeTaskStatus}
                                                                 filter = {tl.filter}

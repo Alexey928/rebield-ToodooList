@@ -1,6 +1,6 @@
 import React  from 'react';
 import Task from "./Task";
-import {filterValueType, tasckType} from "../App";
+import {filterValueType, taskType} from "../App";
 import {getTasksForRender as tasksFilter} from "../AuxiliaryLogic/AuxiliaryLogic"
 import FilteredButtonsInterface from "./FilteredButonsInterfase";
 import AddItemForm from "./AddItemForm";
@@ -9,7 +9,7 @@ import {EditableSpan} from "./EditableSpan";
 type tooDoListPropsType = {
     title:string
     listID:string
-    tasks:Array<tasckType>,
+    tasks:Array<taskType>,
     filter:filterValueType,
     changeTaskStatus:(tascID:string, listID:string)=>void,
     removeTask:(ascID:string, listID:string)=>void,

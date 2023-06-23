@@ -12,7 +12,7 @@ const FilteredButtonsInterface:React.FC<FilteredButtonsType> = ({setToodoListFil
         <div>
             <button onClick={()=>setToodoListFilter(listID,"All")}>All</button>
             <button onClick={()=>setToodoListFilter(listID,"Active")}>Active</button>
-            <button onClick={()=>setToodoListFilter(listID,"Complited")}>Completed</button>
+            <button onClick={()=>setToodoListFilter(listID,"Completed")}>Completed</button>
         </div>
     );
 };

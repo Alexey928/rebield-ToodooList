@@ -1,11 +1,11 @@
 
-import {filterValueType,tasckType} from "../App";
+import {filterValueType,taskType} from "../App";
 
-export const getTasksForRender = (filter:filterValueType, tasks:Array<tasckType>) => {
+export const getTasksForRender = (filter:filterValueType, tasks:Array<taskType>) => {
     switch (filter) {
         case "Active":
             return tasks.filter(t => !t.isDone);
-        case "Complited":
+        case "Completed":
             return tasks.filter(t => t.isDone);
         default:
             return tasks;

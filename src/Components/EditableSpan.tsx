@@ -18,7 +18,6 @@ export function EditableSpan(props: EditableSpanPropsType){
         setTitle(props.titlle);
     }
     const activateViewMode = () => {
-        console.log("ll")
         setEditMode(false);
         props.onChange(props.id,title);
     }
