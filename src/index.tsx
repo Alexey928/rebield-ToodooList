@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppWidthReducers from "./AppWidthReducers";
+import { store } from './store/store';
+
+console.log(store);
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
