@@ -2,12 +2,23 @@ import React ,{useState as State} from 'react';
 import TooDooList from "./Components/TooDooList";
 import {v1} from "uuid";
 import AddItemForm from "./Components/AddItemForm";
-const styles = {
-  too_dooLists_container:{
-        display:"flex",
-        justifyContent:"space-around",
+import logo from "./logo.svg";
 
-  },
+const styles = {
+    too_dooLists_container:
+        {
+            display:"flex",
+            justifyContent:"space-around",
+
+        },
+    header_span:
+        {
+            marginBottom: 0,
+            height: 1,
+            display: "inline-block",
+            paddingBottom: 0,
+            backgroundColor: "#1acbf5",
+        },
 }
 
 export type filterValueType = "All" | "Active" | "Completed";
@@ -69,6 +80,7 @@ function App() {
 
     return (
         <div>
+            <img alt={"img"} src={logo} style={{width:50}}/><span style={styles.header_span}>State on useState()</span>
             <AddItemForm  addItem={addTodoList}/>
             <div style={{...styles.too_dooLists_container,flexWrap:"wrap"}}>
                 {todoLists.map((tl)=><TooDooList  changeTaskTitle={changeTaskTitle}

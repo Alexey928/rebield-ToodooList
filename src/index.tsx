@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppWidthReducers from "./AppWidthReducers";
 import { store } from './store/store';
+import AppWidthRedux from "./AppWidthRedux";
+import {Provider} from "react-redux";
 
 console.log(store);
 
@@ -13,10 +15,17 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <AppWidthReducers />
+    <Provider store={store}>
+        <div>
+            <AppWidthReducers/>
+        </div>
+    </Provider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
+
 reportWebVitals();

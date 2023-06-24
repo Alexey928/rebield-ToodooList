@@ -22,16 +22,15 @@ const initialState: stateTasksType = {}
 export const taskReducer = (state:stateTasksType=initialState, action:ActionsType):stateTasksType=>{
     switch (action.type){
         case "REMOVE-TASK" :
-            return {...state, [action.listId]: state[action.listId].
-                   filter(t => t.id !== action.taskId)}
+            return {...state, [action.listId]: state[action.listId].filter(t => t.id !== action.taskId)}
         case  "CHANGE-TASK-STATUS":
-            return {...state,[action.listId]:state[action.listId].
-                    map((t)=>t.id===action.taskId?{...t,isDone:!t.isDone}:t)}
+            return {...state,[action.listId]:
+                    state[action.listId].map((t)=>t.id===action.taskId?{...t,isDone:!t.isDone}:t)}
         case "ADD-TASK":
             return {...state,[action.listId]:[...state[action.listId],{id:v1(),title:action.title,isDone:false}]}
         case "CHANGE-TASK-TITLE":
-            return {...state,[action.listId]:state[action.listId].
-                   map((t)=>action.taskId===action.listId ? {...t,title:action.title}:t)}
+            return {...state,[action.listId]:
+                    state[action.listId].map((t)=>action.taskId===action.listId ? {...t,title:action.title}:t)}
         case "ADD-TODOLIST":
             return  {...state, [action.todolistId]: []}
         case 'REMOVE-TODOLIST':

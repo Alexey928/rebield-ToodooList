@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEventHandler, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {validateInputValue as validator} from "../AuxiliaryLogic/AuxiliaryLogic"
 
 type AddItemFormPropsType ={
@@ -17,7 +17,7 @@ const AddItemForm:React.FC<AddItemFormPropsType> = ({addItem}) => {
                        setInputValue(e.currentTarget.value);
                        setError(false);
                    }}
-                   onKeyPress={(e:any)=> {
+                   onKeyDown={(e:KeyboardEvent<HTMLInputElement>)=> {
                        e.key==="Enter" &&
                        validator(inputValue,setError) &&
                        addItem(inputValue);

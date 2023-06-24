@@ -1,73 +1,74 @@
-import React, {useReducer} from 'react';
-import AddItemForm from "./Components/AddItemForm";
+import React from 'react';
 import TooDooList from "./Components/TooDooList";
-import logo from "./logo.svg"
+import AddItemForm from "./Components/AddItemForm";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
     removeTodolistAC,
 } from "./ActionCreators/toodoListsActionCreators";
-import { todolistsReducer} from "./Reducers/TodoListReduser"
-import {taskReducer} from "./Reducers/taskReducer"
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, } from "./ActionCreators/taskActionCreators";
-import {filterValueType} from "./App";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./ActionCreators/taskActionCreators";
+import {AppRootStateType} from "./store/store";
+import {filterValueType, stateTasksType, todoListType} from "./App"
+import {useDispatch, useSelector} from 'react-redux';
+import logo from "./reduxLogo.svg";
 
 const styles = {
     too_dooLists_container:
-    {
-        display:"flex",
-        justifyContent:"space-around",
+        {
+            display:"flex",
+            justifyContent:"space-around",
 
-    },
+        },
     header_span:
-    {
-        marginBottom: 0,
-        height: 1,
-        display: "inline-block",
-        paddingBottom: 0,
-        backgroundColor: "#1acbf5",
-    },
+        {
+            marginBottom: 0,
+            height: 1,
+            display: "inline-block",
+            paddingBottom: 0,
+            backgroundColor: "#1acbf5",
+        },
 }
 
+const AppWidthRedux = () => {
 
-
-const AppWidthReducers = () => {
-
-    const [todoLists, dispatchToTodoLists] = useReducer(todolistsReducer, [])
-    const [tasks, dispatchToTasks] = useReducer(taskReducer, {})
+    const tasks = useSelector<AppRootStateType, stateTasksType>(state => state.tasks);
+    const todoLists =useSelector<AppRootStateType,Array<todoListType>>(state => state.todoLists);// или так -->
+    //const {tasks,todoLists} = useSelector<AppRootStateType,AppRootStateType>(state => state);
+    const dispatch= useDispatch();
 
     const changeTaskStatus = (taskID:string,listID:string)  => {
-        dispatchToTasks(changeTaskStatusAC(taskID,listID));
-    }
+        dispatch(changeTaskStatusAC(taskID,listID));
+    };
     const changeTaskTitle = (listID:string, taskID:string, newTitle:string)=>{
-        dispatchToTasks(changeTaskTitleAC(listID,taskID,newTitle));
+        dispatch(changeTaskTitleAC(listID,taskID,newTitle));
     }
     const changeTodoListTitle = (listID:string,newTitle:string)=>{
-       dispatchToTodoLists(changeTodolistTitleAC(listID, newTitle));
+        dispatch(changeTodolistTitleAC(listID, newTitle));
     }
     const removeTask = (taskID:string,listID:string) => {
-        dispatchToTasks(removeTaskAC(taskID,listID));
+        dispatch(removeTaskAC(taskID,listID));
     }
     const setTodoListFilter = (listID:string,filter:filterValueType)=>{
-            dispatchToTodoLists(changeTodolistFilterAC(listID,filter));
+        dispatch(changeTodolistFilterAC(listID,filter));
     }
     const addTAsk = (listID:string,title:string)=>{
-        dispatchToTasks(addTaskAC(title,listID))
+        dispatch(addTaskAC(title,listID))
     }
     const addTodoList = (title:string)=>{
         const action = addTodolistAC(title)
-        dispatchToTodoLists(action)
-        dispatchToTasks(action)
+        dispatch(action)
+
     }
     const removeTodoList = (listID:string)=>{
-        dispatchToTodoLists(removeTodolistAC(listID));
-        dispatchToTasks(removeTodolistAC(listID));
+        dispatch(removeTodolistAC(listID));
     }
+
+
 
     return (
         <div>
-            <img alt={"img"} src={logo} style={{width:50}}/><span style={styles.header_span}>State on Reducers</span>
+            <img alt={"img"} src={logo} style={{width:50}}/><span style={styles.header_span}>State on Redux</span>
             <AddItemForm  addItem={addTodoList}/>
             <div style={{...styles.too_dooLists_container,flexWrap:"wrap"}}>
                 {todoLists.map((tl)=><TooDooList  changeTaskTitle={changeTaskTitle}
@@ -88,5 +89,4 @@ const AppWidthReducers = () => {
     );
 };
 
-
-export default AppWidthReducers;
+export default AppWidthRedux;
