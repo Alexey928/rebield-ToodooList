@@ -1,6 +1,7 @@
 import React, {useReducer} from 'react';
 import AddItemForm from "./Components/AddItemForm";
 import TooDooList from "./Components/TooDooList";
+import logo from "./logo.svg"
 import {
     addTodolistAC,
     changeTodolistFilterAC,
@@ -10,13 +11,22 @@ import {
 import { todolistsReducer} from "./Reducers/TodoListReduser"
 import {taskReducer} from "./Reducers/taskReducer"
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, } from "./ActionCreators/taskActionCreators";
-import {filterValueType, stateTasksType} from "./App";
+import {filterValueType} from "./App";
 
 const styles = {
-    too_dooLists_container:{
+    too_dooLists_container:
+    {
         display:"flex",
         justifyContent:"space-around",
 
+    },
+    header_span:
+    {
+        marginBottom: 0,
+        height: 1,
+        display: "inline-block",
+        paddingBottom: 0,
+        backgroundColor: "#1acbf5",
     },
 }
 
@@ -57,6 +67,7 @@ const AppWidthReducers = () => {
 
     return (
         <div>
+            <img src={logo} style={{width:50}}/><span style={styles.header_span}>State on Reducers</span>
             <AddItemForm  addItem={addTodoList}/>
             <div style={{...styles.too_dooLists_container,flexWrap:"wrap"}}>
                 {todoLists.map((tl)=><TooDooList  changeTaskTitle={changeTaskTitle}
