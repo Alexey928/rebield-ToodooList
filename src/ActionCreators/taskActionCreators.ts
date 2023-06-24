@@ -13,7 +13,6 @@ export type AddTaskActionType = {
 export type ChangeTaskStatusActionType = {
     type: 'CHANGE-TASK-STATUS'
     taskId: string
-    isDone: boolean
     listId: string
 }
 export type ChangeTaskTitleActionType = {
@@ -30,8 +29,8 @@ export const removeTaskAC = (taskId: string, listId: string): RemoveTaskActionTy
 export const addTaskAC = (title: string, listId: string): AddTaskActionType => {
     return {type: 'ADD-TASK', title, listId}
 }
-export const changeTaskStatusAC = (taskId: string, isDone: boolean, listId: string): ChangeTaskStatusActionType => {
-    return {type: 'CHANGE-TASK-STATUS', taskId, isDone, listId}
+export const changeTaskStatusAC = (taskId: string, listId: string): ChangeTaskStatusActionType => {
+    return {type: 'CHANGE-TASK-STATUS', taskId, listId}
 }
 export const changeTaskTitleAC = (taskId: string, title: string, listId: string): ChangeTaskTitleActionType => {
     return {type: 'CHANGE-TASK-TITLE', taskId, title, listId}

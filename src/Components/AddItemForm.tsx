@@ -2,11 +2,10 @@ import React, {ChangeEvent, KeyboardEventHandler, useState} from 'react';
 import {validateInputValue as validator} from "../AuxiliaryLogic/AuxiliaryLogic"
 
 type AddItemFormPropsType ={
-    ID:string
-    addItem:(titile:string,id:string)=>void
+    addItem:(title:string)=>void
 }
 
-const AddItemForm:React.FC<AddItemFormPropsType> = ({addItem,ID}) => {
+const AddItemForm:React.FC<AddItemFormPropsType> = ({addItem}) => {
     const [inputValue,setInputValue]=useState<string>("")
     const [error,setError] = useState<boolean>(false)
 
@@ -21,11 +20,11 @@ const AddItemForm:React.FC<AddItemFormPropsType> = ({addItem,ID}) => {
                    onKeyPress={(e:any)=> {
                        e.key==="Enter" &&
                        validator(inputValue,setError) &&
-                       addItem(ID,inputValue);
+                       addItem(inputValue);
                        e.key==="Enter"&&setInputValue("");
                    }}
             />
-            <button onClick={()=>{validator(inputValue,setError) && addItem(ID,inputValue);setInputValue("")}}>Add</button>
+            <button onClick={()=>{validator(inputValue,setError) && addItem(inputValue);setInputValue("")}}>Add</button>
             {error && <span>ER</span>}
         </div>
     );

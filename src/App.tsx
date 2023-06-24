@@ -5,8 +5,8 @@ import AddItemForm from "./Components/AddItemForm";
 const styles = {
   too_dooLists_container:{
         display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
+        justifyContent:"space-around",
+
   },
 }
 
@@ -16,6 +16,7 @@ export type todoListType = {
      id:string,
      title:string,
      filter:filterValueType
+
 }
 export type taskType = {
     id:string,
@@ -54,7 +55,7 @@ function App() {
         setTasks({...tasks,[listID]:[{id: v1(), title: title, isDone: false},...tasks[listID]]});
     }
 
-    const addTodoList = (ID:string,title:string)=>{
+    const addTodoList = (title:string)=>{
         const forigenKeyID = v1();
         setTodoLists([...todoLists,{id:forigenKeyID,title:title,filter:"All"}]);
         setTasks({...tasks,[forigenKeyID]:[]});
@@ -65,10 +66,11 @@ function App() {
        delete tasks[listID]
     }
 
+
     return (
         <div>
-            <AddItemForm ID={""} addItem={addTodoList}/>
-            <div style={styles.too_dooLists_container}>
+            <AddItemForm  addItem={addTodoList}/>
+            <div style={{...styles.too_dooLists_container,flexWrap:"wrap"}}>
                 {todoLists.map((tl)=><TooDooList  changeTaskTitle={changeTaskTitle}
                                                                 changeToodoListTitle={changeTodoListTitle}
                                                                 removeTodooList={removeTodoList}

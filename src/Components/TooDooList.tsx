@@ -35,10 +35,10 @@ const TooDooList:React.FC<tooDoListPropsType> = ({
                                                  }) => {
 
     return (
-        <div >
+        <div style={{margin:5}}>
             <EditableSpan id={listID} titlle={title} onChange={changeToodoListTitle}/> <button onClick={()=>removeTodooList(listID)} >X</button>
-            <AddItemForm ID={listID} addItem={addTAsk}/>
-            <div>
+            <AddItemForm  addItem={(title)=>addTAsk(listID,title)}/>
+            <ol>
                 {tasksFilter(filter,tasks).map((t) =>
                     (<Task changeTaskTitle={(taskID,title)=>changeTaskTitle(listID,taskID,title)}
                            remuveTask={()=>removeTask(t.id,listID)}
@@ -49,7 +49,7 @@ const TooDooList:React.FC<tooDoListPropsType> = ({
                            tittle={t.title}
                     />))
                 }
-            </div>
+            </ol>
             <FilteredButtonsInterface listID={listID} setToodoListFilter={setToodoListFilter}/>
         </div>
     );

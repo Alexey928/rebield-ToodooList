@@ -14,11 +14,11 @@ type TasksPropsType = {
 const Task:React.FC<TasksPropsType>= ({id,tittle,isDone,changeTascStatus,remuveTask,changeTaskTitle}) => {
 
     return (
-        <div>
+        <li>
             <input onChange={changeTascStatus} type="checkbox" checked={isDone}/>
             <EditableSpan id={id} titlle={tittle} onChange={changeTaskTitle}/>
             <button onClick={remuveTask} style={{marginLeft:10}}>del</button>
-        </div>
+        </li>
     );
 };
 
